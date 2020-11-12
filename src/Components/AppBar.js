@@ -21,7 +21,7 @@ const AppBar = () => {
     <Bar>
       <Logo>CryptoDash</Logo>
       <div />
-      <ControlButton active name={"dashboard"} />
+      <ControlButton name={"dashboard"} />
       <ControlButton name={"settings"} />
     </Bar>
   );
