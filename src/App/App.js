@@ -1,6 +1,6 @@
 import "./App.css";
 import Welcome from "../Components/Welcome";
-import AppLayout from "./AppLayout";
+import AppLayout from "../Components/AppLayout";
 
 function App() {
   return (
