@@ -1,5 +1,5 @@
 import "./App.css";
-import Welcome from "../Components/Welcome";
+import Settings from "../Settings";
 import AppLayout from "../Components/AppLayout";
 import AppBar from "../Components/AppBar";
 import { AppProvider } from "../HOC/AppProvider";
@@ -9,7 +9,7 @@ function App() {
     <AppLayout>
       <AppProvider>
         <AppBar />
-        <Welcome name={"Cryptodash"} />
+        <Settings />
       </AppProvider>
     </AppLayout>
   );
