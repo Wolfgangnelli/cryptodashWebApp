@@ -10,10 +10,6 @@ const AppProvider = (props) => {
   let cryptoDashData = JSON.parse(localStorage.getItem("cryptoDash"));
 
   useEffect(() => {
-    //getCoins();
-  }, []);
-
-  useEffect(() => {
     if (!cryptoDashData) {
       setPage("settings");
       setFirstVisit(true);

@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-
-const CoinListLayout = styled.div`
-  display: grid;
-`;
+import Loading from "./Loading";
 
 const CoinLists = ({ data, getCoins }) => {
+  //const coinsL = useSelector((state) => state.listCoins.data);
   const [coinList, setcoinList] = useState({});
   useEffect(() => {
     getCoins();
@@ -17,12 +14,20 @@ const CoinLists = ({ data, getCoins }) => {
     console.log("coinList--> " + coinList);
   }, [data]);
 
+  function isEmpty(obj) {
+    return Object.keys(obj).length > 0;
+  }
+
   return (
-    <CoinListLayout>
-      <ul>
-        <li>Coins</li>
-      </ul>
-    </CoinListLayout>
+    <div>
+      {isEmpty(coinList) ? (
+        <ul>
+          <li>Coins</li>
+        </ul>
+      ) : (
+        <Loading />
+      )}
+    </div>
   );
 };
 
