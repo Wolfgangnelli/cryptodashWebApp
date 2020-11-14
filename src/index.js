@@ -26,7 +26,7 @@ let store = createStore(
 
 store.subscribe(() => {
   const state = store.getState();
-  console.log("store subscribe--> " + JSON.stringify(state));
+  // console.log("store subscribe--> " + JSON.stringify(state));
   if (state) {
     storeCoins = state;
   }
