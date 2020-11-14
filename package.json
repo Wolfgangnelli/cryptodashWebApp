@@ -19,6 +19,8 @@
     "web-vitals": "^0.2.4"
   },
   "scripts": {
+    "build:css": "postcss src/styles/index.css --output src/App/index.css --watch",
+    "watch:css": "postcss src/styles/index.css --output src/App/index.css --watch --verbose",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -41,5 +43,12 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.0.2",
+    "postcss": "^8.1.7",
+    "postcss-cli": "^8.2.0",
+    "postcss-import": "^13.0.0",
+    "tailwindcss": "^1.9.6"
   }
 }

@@ -1,4 +1,4 @@
-import "./App.css";
+import "./index.css";
 import Settings from "../Settings";
 import AppLayout from "../Components/AppLayout";
 import AppBar from "../Components/AppBar";
