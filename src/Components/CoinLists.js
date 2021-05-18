@@ -7,7 +7,7 @@ const CoinLists = ({ data, getCoins }) => {
   const [coinList, setcoinList] = useState({});
 
   function isEmpty(obj) {
-    return Object.keys(obj).length > 0;
+    return Object.keys(obj).length === 0;
   }
   useEffect(() => {
     getCoins();
@@ -17,11 +17,11 @@ const CoinLists = ({ data, getCoins }) => {
     if (isEmpty(coinList)) {
       setcoinList(data);
     }
-  }, [data, coinList]);
+  }, []);
 
   return (
     <div>
-      {isEmpty(coinList) ? (
+      {!isEmpty(coinList) ? (
         <>
           <h2 className="uppercase h2">
             Total Coin Lists: {Object.keys(coinList).length}
@@ -39,4 +39,4 @@ const CoinLists = ({ data, getCoins }) => {
   );
 };
 
-export default CoinLists;
+export default React.memo(CoinLists);
