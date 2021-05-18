@@ -1,7 +1,8 @@
 import React from "react";
+import { SelectableTile } from "../Shared/Tile";
 
 const CoinKey = ({ coin }) => {
-  return <li>{coin}</li>;
+  return <SelectableTile>{coin}</SelectableTile>;
 };
 
 export default CoinKey;

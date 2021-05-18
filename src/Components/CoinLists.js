@@ -26,11 +26,11 @@ const CoinLists = ({ data, getCoins }) => {
           <h2 className="uppercase h2">
             Total Coin Lists: {Object.keys(coinList).length}
           </h2>
-          <ul className="grid grid-cols-4 gap-4">
+          <div className="grid grid-cols-4 gap-4 pt-2">
             {Object.keys(coinList).map((coin, i) => (
               <CoinKey coin={coin} key={i} />
             ))}
-          </ul>
+          </div>
         </>
       ) : (
         <Loading />
