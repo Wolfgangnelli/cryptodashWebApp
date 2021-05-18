@@ -17,7 +17,12 @@ const CoinLists = ({ data, getCoins }) => {
     if (isEmpty(coinList)) {
       setcoinList(data);
     }
-  }, []);
+  }, [data, coinList]);
+
+  function getCoinToDisplay() {
+    /* console.log(Object.keys(coinList).slice(0, 100)); */
+    return Object.keys(coinList).slice(0, 100);
+  }
 
   return (
     <div>
@@ -27,8 +32,8 @@ const CoinLists = ({ data, getCoins }) => {
             Total Coin Lists: {Object.keys(coinList).length}
           </h2>
           <div className="grid grid-cols-4 gap-4 pt-2">
-            {Object.keys(coinList).map((coin, i) => (
-              <CoinKey coin={coin} key={i} />
+            {getCoinToDisplay().map((coinK, idx) => (
+              <CoinKey coinK={coinK} key={idx} coinList={coinList} />
             ))}
           </div>
         </>
