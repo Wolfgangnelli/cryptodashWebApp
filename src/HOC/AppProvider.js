@@ -5,16 +5,23 @@ const AppContext = React.createContext();
 const AppProvider = (props) => {
   const [page, setPage] = useState("dashboard");
   const [firstVisit, setFirstVisit] = useState(false);
+  const [favorites, setFavorites] = useState(["BTC", "ETH", "XMR", "DOGE"]);
   const [confirmFavorites, setConfirmFavorites] = useState(null);
 
   let cryptoDashData = JSON.parse(localStorage.getItem("cryptoDash"));
 
-  useEffect(() => {
+  const savedSettings = () => {
     if (!cryptoDashData) {
       setPage("settings");
       setFirstVisit(true);
+    } else {
+      setFavorites(cryptoDashData);
     }
-  }, [cryptoDashData]);
+  };
+
+  useEffect(() => {
+    savedSettings();
+  }, []);
 
   useEffect(() => {
     if (confirmFavorites) {
@@ -22,12 +29,20 @@ const AppProvider = (props) => {
       setPage("dashboard");
       localStorage.setItem(
         "cryptoDash",
-        JSON.stringify({ test: confirmFavorites })
+        JSON.stringify({ favorites: favorites })
       );
+      setConfirmFavorites(!confirmFavorites);
     }
   }, [confirmFavorites]);
 
-  let values = [page, setPage, firstVisit, setConfirmFavorites];
+  let values = [
+    page,
+    setPage,
+    firstVisit,
+    setConfirmFavorites,
+    favorites,
+    setFavorites,
+  ];
 
   return (
     <AppContext.Provider value={values}>{props.children}</AppContext.Provider>
