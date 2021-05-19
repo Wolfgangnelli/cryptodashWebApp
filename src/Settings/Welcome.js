@@ -10,9 +10,9 @@ const Welcome = (props) => {
           Welcome to {props.name} !!! Please select your favorite coins to
           begin.
         </h1>
-      ) : null
-      /*  <h1>Welcome back to {props.name} !!!</h1> */
-      }
+      ) : (
+        <h1>Welcome back to {props.name} !!!</h1>
+      )}
     </>
   );
 };
