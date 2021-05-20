@@ -3,6 +3,7 @@ import Welcome from "./Welcome";
 import { ConfirmButton } from "./ConfirmButton";
 import Page from "../Pages/Page";
 import CoinLists from "../Containers/CoinList";
+import Search from "./Search";
 
 export default function () {
   return (
@@ -11,6 +12,7 @@ export default function () {
         <Welcome name={"Cryptodash"} />
         <CoinLists topSection />
         <ConfirmButton />
+        <Search />
         <CoinLists />
       </Page>
     </>
