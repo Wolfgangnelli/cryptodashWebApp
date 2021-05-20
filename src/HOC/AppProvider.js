@@ -27,10 +27,7 @@ const AppProvider = (props) => {
     if (confirmFavorites) {
       setFirstVisit(false);
       setPage("dashboard");
-      localStorage.setItem(
-        "cryptoDash",
-        JSON.stringify({ favorites: favorites })
-      );
+      localStorage.setItem("cryptoDash", JSON.stringify(favorites));
       setConfirmFavorites(!confirmFavorites);
     }
   }, [confirmFavorites]);

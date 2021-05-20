@@ -1,7 +1,15 @@
 import React, { useEffect, useState, useContext } from "react";
+import styled from "styled-components";
 import Loading from "./Loading";
 import CoinTile from "./CoinTile";
 import { AppContext } from "../HOC/AppProvider";
+
+export const CoinGridStyled = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  grid-gap: 16px;
+  margin-top: 20px;
+`;
 
 const CoinLists = ({ data, getCoins, topSection }) => {
   //const coinsL = useSelector((state) => state.listCoins.data);
@@ -21,7 +29,7 @@ const CoinLists = ({ data, getCoins, topSection }) => {
     }
   }, [data, coinList]);
 
-  function getCoinToDisplay() {
+  function getCoinsToDisplay() {
     return topSection ? favorites : Object.keys(coinList).slice(0, 100);
   }
 
@@ -36,8 +44,8 @@ const CoinLists = ({ data, getCoins, topSection }) => {
               <span>Total Coin Lists: {Object.keys(coinList).length}</span>
             )}
           </h2>
-          <div className="grid grid-cols-4 gap-4 pt-2">
-            {getCoinToDisplay().map((coinK, idx) => (
+          <CoinGridStyled>
+            {getCoinsToDisplay().map((coinK, idx) => (
               <CoinTile
                 topSection={topSection}
                 coinK={coinK}
@@ -45,7 +53,7 @@ const CoinLists = ({ data, getCoins, topSection }) => {
                 coinList={coinList}
               />
             ))}
-          </div>
+          </CoinGridStyled>
         </>
       ) : (
         <Loading />
