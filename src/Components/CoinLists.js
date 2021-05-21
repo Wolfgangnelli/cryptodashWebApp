@@ -11,31 +11,27 @@ export const CoinGridStyled = styled.div`
   margin-top: 20px;
 `;
 
-const CoinLists = ({ data, getCoins, topSection }) => {
-  //const coinsL = useSelector((state) => state.listCoins.data);
-  const [coinList, setcoinList] = useState({});
-  const [, , , , favorites] = useContext(AppContext);
+const CoinLists = ({ topSection }) => {
+  const [coinList, , , , , favorites, , , filteredCoins] =
+    useContext(AppContext);
 
-  function isEmpty(obj) {
+  /*   function isEmpty(obj) {
     return Object.keys(obj).length === 0;
-  }
-  useEffect(() => {
-    getCoins();
-  }, []);
+  } */
 
-  useEffect(() => {
-    if (isEmpty(coinList)) {
-      setcoinList(data);
-    }
-  }, [data, coinList]);
+  function getLowerSectionCoins() {
+    return Object.keys(filteredCoins).length > 0
+      ? Object.keys(filteredCoins)
+      : Object.keys(coinList).slice(0, 100);
+  }
 
   function getCoinsToDisplay() {
-    return topSection ? favorites : Object.keys(coinList).slice(0, 100);
+    return topSection ? favorites : getLowerSectionCoins();
   }
 
   return (
     <div>
-      {!isEmpty(coinList) ? (
+      {coinList ? (
         <>
           <h2 className="uppercase h2">
             {topSection ? (

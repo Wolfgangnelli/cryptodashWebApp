@@ -2,7 +2,7 @@ import React from "react";
 import Welcome from "./Welcome";
 import { ConfirmButton } from "./ConfirmButton";
 import Page from "../Pages/Page";
-import CoinLists from "../Containers/CoinList";
+import CoinLists from "../Components/CoinLists";
 import Search from "./Search";
 
 export default function () {

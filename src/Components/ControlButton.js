@@ -16,7 +16,7 @@ const ControlButtonElem = styled.div`
 `;
 
 const ControlButton = ({ name }) => {
-  const [page, setPage] = useContext(AppContext);
+  const [, page, setPage] = useContext(AppContext);
   return (
     <ControlButtonElem active={page === name} onClick={() => setPage(name)}>
       {toProperCase(name)}

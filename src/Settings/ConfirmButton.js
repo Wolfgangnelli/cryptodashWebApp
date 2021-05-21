@@ -23,7 +23,7 @@ const CenterDiv = styled.div`
 `;
 
 export function ConfirmButton() {
-  const [, , , setConfirmFavorites] = useContext(AppContext);
+  const [, , , , setConfirmFavorites] = useContext(AppContext);
 
   return (
     <CenterDiv>

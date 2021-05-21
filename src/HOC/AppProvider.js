@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 
 const AppContext = React.createContext();
 
-const AppProvider = (props) => {
+const AppProvider = ({ children, getCoins, data }) => {
   const [page, setPage] = useState("dashboard");
   const [firstVisit, setFirstVisit] = useState(false);
   const [favorites, setFavorites] = useState(["BTC", "ETH", "XMR", "DOGE"]);
   const [confirmFavorites, setConfirmFavorites] = useState(null);
+  const [coinList, setcoinList] = useState({});
+  const [filteredCoins, setfilteredCoins] = useState([]);
 
   let cryptoDashData = JSON.parse(localStorage.getItem("cryptoDash"));
 
@@ -20,7 +22,11 @@ const AppProvider = (props) => {
   };
 
   useEffect(() => {
+    getCoins();
     savedSettings();
+    if (data) {
+      setcoinList(data);
+    }
   }, []);
 
   useEffect(() => {
@@ -32,18 +38,23 @@ const AppProvider = (props) => {
     }
   }, [confirmFavorites]);
 
+  /*   const setFilterCoins = (filteredCoins) => {
+    setfilteredCoins(filteredCoins);
+  }; */
+
   let values = [
+    coinList,
     page,
     setPage,
     firstVisit,
     setConfirmFavorites,
     favorites,
     setFavorites,
+    setfilteredCoins,
+    filteredCoins,
   ];
 
-  return (
-    <AppContext.Provider value={values}>{props.children}</AppContext.Provider>
-  );
+  return <AppContext.Provider value={values}>{children}</AppContext.Provider>;
 };
 
 export { AppProvider, AppContext };
