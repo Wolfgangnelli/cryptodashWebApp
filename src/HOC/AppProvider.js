@@ -18,6 +18,11 @@ const AppProvider = ({ children, getCoins, data, getPrices, coinPrices }) => {
       setFirstVisit(true);
     } else {
       setFavorites(cryptoDashData);
+      if (favorites.length > 0) {
+        getPrices(favorites.toString());
+      } else {
+        getPrices(cryptoDashData.toString());
+      }
     }
   };
 
@@ -52,6 +57,7 @@ const AppProvider = ({ children, getCoins, data, getPrices, coinPrices }) => {
     setFavorites,
     setfilteredCoins,
     filteredCoins,
+    coinPrices,
   ];
 
   return <AppContext.Provider value={values}>{children}</AppContext.Provider>;

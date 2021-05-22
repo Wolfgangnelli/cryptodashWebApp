@@ -31,29 +31,23 @@ const CoinLists = ({ topSection }) => {
 
   return (
     <div>
-      {coinList ? (
-        <>
-          <h2 className="uppercase h2">
-            {topSection ? (
-              <span>Favourites coins</span>
-            ) : (
-              <span>Total Coin Lists: {Object.keys(coinList).length}</span>
-            )}
-          </h2>
-          <CoinGridStyled>
-            {getCoinsToDisplay().map((coinK, idx) => (
-              <CoinTile
-                topSection={topSection}
-                coinK={coinK}
-                key={idx}
-                coinList={coinList}
-              />
-            ))}
-          </CoinGridStyled>
-        </>
-      ) : (
-        <Loading />
-      )}
+      <h2 className="uppercase h2">
+        {topSection ? (
+          <span>Favourites coins</span>
+        ) : (
+          <span>Total Coin Lists: {Object.keys(coinList).length}</span>
+        )}
+      </h2>
+      <CoinGridStyled>
+        {getCoinsToDisplay().map((coinK, idx) => (
+          <CoinTile
+            topSection={topSection}
+            coinK={coinK}
+            key={idx}
+            coinList={coinList}
+          />
+        ))}
+      </CoinGridStyled>
     </div>
   );
 };

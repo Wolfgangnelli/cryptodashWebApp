@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { AppContext } from "../HOC/AppProvider";
 
 const Welcome = (props) => {
-  const [, , firstVisit] = useContext(AppContext);
+  const [, , , firstVisit] = useContext(AppContext);
   return (
     <>
       {firstVisit ? (
