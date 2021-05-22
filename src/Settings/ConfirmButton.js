@@ -23,11 +23,14 @@ const CenterDiv = styled.div`
 `;
 
 export function ConfirmButton() {
-  const [, , , , setConfirmFavorites] = useContext(AppContext);
+  const [, , , , confirmFavorites, setConfirmFavorites] =
+    useContext(AppContext);
 
   return (
     <CenterDiv>
-      <ConfirmButtonStyled onClick={() => setConfirmFavorites(true)}>
+      <ConfirmButtonStyled
+        onClick={() => setConfirmFavorites(!confirmFavorites)}
+      >
         Confirm Favorites
       </ConfirmButtonStyled>
     </CenterDiv>

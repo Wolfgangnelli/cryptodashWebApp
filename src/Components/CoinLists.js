@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import Loading from "./Loading";
 import CoinTile from "./CoinTile";
@@ -12,7 +12,7 @@ export const CoinGridStyled = styled.div`
 `;
 
 const CoinLists = ({ topSection }) => {
-  const [coinList, , , , , favorites, , , filteredCoins] =
+  const [coinList, , , , , , favorites, , , filteredCoins] =
     useContext(AppContext);
 
   /*   function isEmpty(obj) {
@@ -20,7 +20,7 @@ const CoinLists = ({ topSection }) => {
   } */
 
   function getLowerSectionCoins() {
-    return Object.keys(filteredCoins).length > 0
+    return filteredCoins && Object.keys(filteredCoins).length > 0
       ? Object.keys(filteredCoins)
       : Object.keys(coinList).slice(0, 100);
   }

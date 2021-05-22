@@ -15,6 +15,11 @@ let storeCoins = {
     message: "",
     response: "",
   },
+  coinPrices: {
+    data: {},
+    message: "",
+    response: "",
+  },
 };
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
