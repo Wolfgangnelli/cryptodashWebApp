@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
-import Loading from "./Loading";
 import CoinTile from "./CoinTile";
 import { AppContext } from "../HOC/AppProvider";
 
@@ -39,11 +38,11 @@ const CoinLists = ({ topSection }) => {
         )}
       </h2>
       <CoinGridStyled>
-        {getCoinsToDisplay().map((coinK, idx) => (
+        {getCoinsToDisplay().map((coinK) => (
           <CoinTile
             topSection={topSection}
             coinK={coinK}
-            key={idx}
+            key={coinK}
             coinList={coinList}
           />
         ))}
