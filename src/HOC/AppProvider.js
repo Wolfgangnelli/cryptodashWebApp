@@ -9,6 +9,7 @@ const AppProvider = ({ children, getCoins, data, getPrices, coinPrices }) => {
   const [confirmFavorites, setConfirmFavorites] = useState(false);
   const [coinList, setcoinList] = useState({});
   const [filteredCoins, setfilteredCoins] = useState([]);
+  const [currentFavorite, setcurrentFavorite] = useState("");
 
   let cryptoDashData = JSON.parse(localStorage.getItem("cryptoDash"));
 
@@ -17,13 +18,42 @@ const AppProvider = ({ children, getCoins, data, getPrices, coinPrices }) => {
       setPage("settings");
       setFirstVisit(true);
     } else {
-      setFavorites(cryptoDashData);
+      setFavorites(cryptoDashData.favorites);
+      setcurrentFavorite(cryptoDashData.currentFavorite);
       if (favorites.length > 0) {
         getPrices(favorites.toString());
       } else {
-        getPrices(cryptoDashData.toString());
+        getPrices(cryptoDashData.favorites.toString());
       }
     }
+  };
+
+  const confirmFav = () => {
+    setcurrentFavorite(favorites[0]);
+
+    setFirstVisit(false);
+    setPage("dashboard");
+    getPrices(favorites.toString());
+    localStorage.setItem(
+      "cryptoDash",
+      JSON.stringify({
+        favorites: favorites,
+        currentFavorite: currentFavorite,
+      })
+    );
+    /* localStorage.setItem("currentFavorite", JSON.stringify(currentFavorite)); */
+  };
+
+  const handlerCurrentFavorite = (sym) => {
+    setcurrentFavorite(sym);
+
+    localStorage.setItem(
+      "cryptoDash",
+      JSON.stringify({
+        ...JSON.parse(localStorage.getItem("cryptoDash")),
+        currentFavorite: sym,
+      })
+    );
   };
 
   useEffect(() => {
@@ -39,10 +69,7 @@ const AppProvider = ({ children, getCoins, data, getPrices, coinPrices }) => {
 
   useEffect(() => {
     if (favorites.length > 0) {
-      setFirstVisit(false);
-      setPage("dashboard");
-      getPrices(favorites.toString());
-      localStorage.setItem("cryptoDash", JSON.stringify(favorites));
+      confirmFav();
     }
   }, [confirmFavorites]);
 
@@ -58,6 +85,8 @@ const AppProvider = ({ children, getCoins, data, getPrices, coinPrices }) => {
     setfilteredCoins,
     filteredCoins,
     coinPrices,
+    currentFavorite,
+    handlerCurrentFavorite,
   ];
 
   return <AppContext.Provider value={values}>{children}</AppContext.Provider>;
