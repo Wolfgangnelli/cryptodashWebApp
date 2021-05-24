@@ -7,14 +7,12 @@ import Search from "./Search";
 
 export default function () {
   return (
-    <>
-      <Page name="settings">
-        <Welcome name={"Cryptodash"} />
-        <CoinLists topSection />
-        <ConfirmButton />
-        <Search />
-        <CoinLists />
-      </Page>
-    </>
+    <Page name="settings">
+      <Welcome name={"Cryptodash"} />
+      <CoinLists topSection />
+      <ConfirmButton />
+      <Search />
+      <CoinLists />
+    </Page>
   );
 }

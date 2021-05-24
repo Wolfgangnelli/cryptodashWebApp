@@ -7,7 +7,7 @@ const AppProvider = ({ children, getCoins, data, getPrices, coinPrices }) => {
   const [firstVisit, setFirstVisit] = useState(false);
   const [favorites, setFavorites] = useState([]);
   const [confirmFavorites, setConfirmFavorites] = useState(false);
-  const [coinList, setcoinList] = useState({});
+  const [coinList, setcoinList] = useState(data);
   const [filteredCoins, setfilteredCoins] = useState([]);
   const [currentFavorite, setcurrentFavorite] = useState("");
 
@@ -41,7 +41,6 @@ const AppProvider = ({ children, getCoins, data, getPrices, coinPrices }) => {
         currentFavorite: currentFavorite,
       })
     );
-    /* localStorage.setItem("currentFavorite", JSON.stringify(currentFavorite)); */
   };
 
   const handlerCurrentFavorite = (sym) => {
@@ -64,6 +63,7 @@ const AppProvider = ({ children, getCoins, data, getPrices, coinPrices }) => {
   useEffect(() => {
     if (data || Object.keys(coinList).length === 0) {
       setcoinList(data);
+      setcurrentFavorite(cryptoDashData.currentFavorite);
     }
   }, [data]);
 
