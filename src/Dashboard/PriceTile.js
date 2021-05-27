@@ -44,9 +44,16 @@ function ChangePercent({ dataE, dataU }) {
     <JustifyRight>
       <p className="text-blue-700">CHANGE % 24H</p>
       <div className="flex">
-        <ChagePct red={dataE.CHANGEPCT24HOUR < 0}>
-          <span> $ {dataU.CHANGEPCT24HOUR}%</span> ;{" "}
+        <ChagePct red={dataU.CHANGEPCT24HOUR < 0}>
+          <span> $ {dataU.CHANGEPCT24HOUR}%</span>
+          <span
+            className="text-white"
+            style={{ marginLeft: "2px", marginRight: "2px" }}
+          >
+            ;
+          </span>
         </ChagePct>
+
         <ChagePct red={dataE.CHANGEPCT24HOUR < 0}>
           <span> € {dataE.CHANGEPCT24HOUR}%</span>
         </ChagePct>
