@@ -1,4 +1,9 @@
-import { GET_COINS, GET_PRICES } from "../Actions/actionTypes";
+import {
+  GET_COINS,
+  GET_PRICES,
+  GET_HISTORICAL,
+  DELETE_HISTORICAL,
+} from "../Actions/actionTypes";
 
 const coinsReducer = (state = {}, action) => {
   switch (action.type) {
@@ -27,6 +32,22 @@ const coinsReducer = (state = {}, action) => {
           data: action.payload.data.DISPLAY,
           message: action.payload.statusText,
           response: action.payload.status,
+        },
+      };
+    }
+    case `${GET_HISTORICAL}`: {
+      return {
+        ...state,
+        historicalData: {
+          data: action.payload,
+        },
+      };
+    }
+    case `${DELETE_HISTORICAL}`: {
+      return {
+        ...state,
+        historicalData: {
+          data: action.payload,
         },
       };
     }

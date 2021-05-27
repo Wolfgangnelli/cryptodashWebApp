@@ -7,19 +7,25 @@ import PriceChart from "./PriceChart";
 
 const ChartGrid = styled.div`
   display: grid;
-  margin-top: 40px;
+  margin-top: 120px;
   grid-gap: 15px;
-  grid-template-columns: 1fr 3fr;
+  grid-template-columns: 1fr;
+  grid-template-rows: 200px 1fr;
 `;
 
 const Dashboard = () => {
   return (
     <Page name="dashboard">
       <PriceGrid />
-      <ChartGrid>
+      <div className="chart-grid">
         <CoinSpotlight />
-        <PriceChart />
-      </ChartGrid>
+        <div className="chart-grid-tile">
+          <PriceChart />
+          <div className="mt-4">
+            <PriceChart euro={true} />
+          </div>
+        </div>
+      </div>
     </Page>
   );
 };

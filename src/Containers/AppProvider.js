@@ -1,5 +1,10 @@
 import { connect } from "react-redux";
-import { getCoins, getPrices } from "../Actions/index";
+import {
+  getCoins,
+  getPrices,
+  getHistorical,
+  deleteHistorical,
+} from "../Actions/index";
 import { AppProvider } from "../HOC/AppProvider";
 
 const mapStateToProps = (state) => {
@@ -7,7 +12,13 @@ const mapStateToProps = (state) => {
   return {
     data: state.listCoins.data,
     coinPrices: state.coinPrices.data,
+    historicalData: state.historicalData.data,
   };
 };
 
-export default connect(mapStateToProps, { getCoins, getPrices })(AppProvider);
+export default connect(mapStateToProps, {
+  getCoins,
+  getPrices,
+  getHistorical,
+  deleteHistorical,
+})(AppProvider);

@@ -11,6 +11,7 @@ const SpotlightName = styled.h2`
   font-size: 1.5rem;
   line-height: 2rem;
   text-transform: uppercase;
+  text-align: center;
 `;
 
 const CoinSpotlight = () => {
@@ -20,7 +21,7 @@ const CoinSpotlight = () => {
   return (
     <>
       {coinList[currentFavorite] && coinList[currentFavorite].CoinName ? (
-        <Tile>
+        <Tile className="flex md:grid md:items-center">
           <SpotlightName>{coinList[currentFavorite].CoinName}</SpotlightName>
           <CoinImage coin={coinList[currentFavorite]} spotlight />
         </Tile>

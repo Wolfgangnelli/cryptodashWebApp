@@ -6,3 +6,5 @@ export const URL_CRYPTOCOMPARE = "http://cryptocompare.com/";
 export const API_GET_PRICES =
   "https://min-api.cryptocompare.com/data/pricemultifull?fsyms=";
 //BTC,ETH&tsyms=USD,EUR
+export const API_HISTORICAL_DATA =
+  "https://min-api.cryptocompare.com/data/pricehistorical?";

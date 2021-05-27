@@ -12,7 +12,7 @@ export default function ({ coin, spotlight }) {
       alt={coin.Symbol}
       src={`${URL_CRYPTOCOMPARE}${coin.ImageUrl}`}
       spotlight={spotlight}
-      className="md:w-3/4 md:h-auto"
+      className="md:w-3/4 md:h-auto w-2/4 h-40 "
     />
   );
 }

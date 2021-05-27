@@ -45,10 +45,10 @@ function ChangePercent({ dataE, dataU }) {
       <p className="text-blue-700">CHANGE % 24H</p>
       <div className="flex">
         <ChagePct red={dataE.CHANGEPCT24HOUR < 0}>
-          <span> $ {dataU.CHANGEPCT24HOUR}</span> ;{" "}
+          <span> $ {dataU.CHANGEPCT24HOUR}%</span> ;{" "}
         </ChagePct>
         <ChagePct red={dataE.CHANGEPCT24HOUR < 0}>
-          <span> € {dataE.CHANGEPCT24HOUR}</span>
+          <span> € {dataE.CHANGEPCT24HOUR}%</span>
         </ChagePct>
       </div>
     </JustifyRight>

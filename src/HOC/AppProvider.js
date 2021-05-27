@@ -1,8 +1,21 @@
 import React, { useState, useEffect } from "react";
+import moment from "moment";
+import axios from "axios";
+import { API_HISTORICAL_DATA } from "../Config/index";
 
 const AppContext = React.createContext();
+const TIME_UNITS = 10;
 
-const AppProvider = ({ children, getCoins, data, getPrices, coinPrices }) => {
+const AppProvider = ({
+  children,
+  getCoins,
+  data,
+  getPrices,
+  coinPrices,
+  getHistorical,
+  historicalData,
+  deleteHistorical,
+}) => {
   const [page, setPage] = useState("dashboard");
   const [firstVisit, setFirstVisit] = useState(false);
   const [favorites, setFavorites] = useState([]);
@@ -10,6 +23,18 @@ const AppProvider = ({ children, getCoins, data, getPrices, coinPrices }) => {
   const [coinList, setcoinList] = useState(data);
   const [filteredCoins, setfilteredCoins] = useState([]);
   const [currentFavorite, setcurrentFavorite] = useState("");
+  const [historicalUSD, sethistoricalUSD] = useState([
+    {
+      name: "",
+      data: [],
+    },
+  ]);
+  const [historicalEUR, sethistoricalEUR] = useState([
+    {
+      name: "",
+      data: [],
+    },
+  ]);
 
   let cryptoDashData = JSON.parse(localStorage.getItem("cryptoDash"));
 
@@ -28,6 +53,42 @@ const AppProvider = ({ children, getCoins, data, getPrices, coinPrices }) => {
     }
   };
 
+  const promiseLoad = (fsym, tsyms, time) => {
+    return axios
+      .get(`${API_HISTORICAL_DATA}fsym=${fsym}&tsyms=${tsyms}&ts=${+time}`)
+      .then((res) => {
+        return res;
+      });
+  };
+
+  const loadHistorical = (sym) => {
+    let promises = [];
+    let fav;
+    if (sym) {
+      fav = sym;
+    } else if (favorites) {
+      fav = favorites[0];
+    } else {
+      fav = cryptoDashData.currentFavorite;
+    }
+
+    for (let units = TIME_UNITS; units > 0; units--) {
+      promises.push(
+        promiseLoad(
+          fav,
+          ["USD", "EUR"],
+          moment().subtract({ months: units }).toDate()
+        )
+      );
+    }
+    if (historicalData.length > 0) {
+      deleteHistorical();
+    }
+    Promise.all(promises).then((res) => {
+      getHistorical(res);
+    });
+  };
+
   const confirmFav = () => {
     setcurrentFavorite(favorites[0]);
 
@@ -41,7 +102,46 @@ const AppProvider = ({ children, getCoins, data, getPrices, coinPrices }) => {
         currentFavorite: currentFavorite,
       })
     );
+    loadHistorical();
   };
+
+  function handlerHistorical() {
+    /*     console.log(historicalData);
+    console.log(currentFavorite); */
+    let arrFiltered = historicalData.filter((elm) => {
+      return Object.keys(elm.data).toString() === currentFavorite;
+    });
+    /*    console.log(arrFiltered); */
+
+    sethistoricalUSD([
+      {
+        name: `${currentFavorite} USD`,
+        data: arrFiltered.map((el, idx) => {
+          let ky = Object.keys(el.data).toString();
+          return [
+            moment()
+              .subtract({ months: TIME_UNITS - idx })
+              .valueOf(),
+            el.data[ky].USD,
+          ];
+        }),
+      },
+    ]);
+    sethistoricalEUR([
+      {
+        name: `${currentFavorite} EUR`,
+        data: arrFiltered.map((el, idx) => {
+          let ky = Object.keys(el.data).toString();
+          return [
+            moment()
+              .subtract({ months: TIME_UNITS - idx })
+              .valueOf(),
+            el.data[ky].EUR,
+          ];
+        }),
+      },
+    ]);
+  }
 
   const handlerCurrentFavorite = (sym) => {
     setcurrentFavorite(sym);
@@ -53,25 +153,40 @@ const AppProvider = ({ children, getCoins, data, getPrices, coinPrices }) => {
         currentFavorite: sym,
       })
     );
+    loadHistorical(sym);
   };
 
   useEffect(() => {
     getCoins();
     savedSettings();
+    if (cryptoDashData) {
+      loadHistorical();
+    }
+    return () => {
+      deleteHistorical();
+    };
   }, []);
 
   useEffect(() => {
     if (data || Object.keys(coinList).length === 0) {
       setcoinList(data);
-      setcurrentFavorite(cryptoDashData.currentFavorite);
+      if (cryptoDashData) {
+        setcurrentFavorite(cryptoDashData.currentFavorite);
+      }
     }
   }, [data]);
 
   useEffect(() => {
-    if (favorites.length > 0) {
+    if (confirmFavorites) {
       confirmFav();
     }
   }, [confirmFavorites]);
+
+  useEffect(() => {
+    if (historicalData.length > 0) {
+      handlerHistorical();
+    }
+  }, [historicalData]);
 
   let values = [
     coinList,
@@ -87,6 +202,8 @@ const AppProvider = ({ children, getCoins, data, getPrices, coinPrices }) => {
     coinPrices,
     currentFavorite,
     handlerCurrentFavorite,
+    historicalUSD,
+    historicalEUR,
   ];
 
   return <AppContext.Provider value={values}>{children}</AppContext.Provider>;
