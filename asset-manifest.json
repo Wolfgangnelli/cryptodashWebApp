@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/cryptodashWebApp/static/css/main.be295f45.chunk.css",
+    "main.js": "/cryptodashWebApp/static/js/main.75ca0c0c.chunk.js",
+    "main.js.map": "/cryptodashWebApp/static/js/main.75ca0c0c.chunk.js.map",
+    "runtime-main.js": "/cryptodashWebApp/static/js/runtime-main.d3c7a376.js",
+    "runtime-main.js.map": "/cryptodashWebApp/static/js/runtime-main.d3c7a376.js.map",
+    "static/css/2.55cde63d.chunk.css": "/cryptodashWebApp/static/css/2.55cde63d.chunk.css",
+    "static/js/2.118aca8a.chunk.js": "/cryptodashWebApp/static/js/2.118aca8a.chunk.js",
+    "static/js/2.118aca8a.chunk.js.map": "/cryptodashWebApp/static/js/2.118aca8a.chunk.js.map",
+    "static/js/3.6f4595fb.chunk.js": "/cryptodashWebApp/static/js/3.6f4595fb.chunk.js",
+    "static/js/3.6f4595fb.chunk.js.map": "/cryptodashWebApp/static/js/3.6f4595fb.chunk.js.map",
+    "index.html": "/cryptodashWebApp/index.html",
+    "static/css/2.55cde63d.chunk.css.map": "/cryptodashWebApp/static/css/2.55cde63d.chunk.css.map",
+    "static/css/main.be295f45.chunk.css.map": "/cryptodashWebApp/static/css/main.be295f45.chunk.css.map",
+    "static/js/2.118aca8a.chunk.js.LICENSE.txt": "/cryptodashWebApp/static/js/2.118aca8a.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.d3c7a376.js",
+    "static/css/2.55cde63d.chunk.css",
+    "static/js/2.118aca8a.chunk.js",
+    "static/css/main.be295f45.chunk.css",
+    "static/js/main.75ca0c0c.chunk.js"
+  ]
+}
