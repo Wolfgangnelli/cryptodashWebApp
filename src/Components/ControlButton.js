@@ -13,12 +13,21 @@ const ControlButtonElem = styled.div`
     css`
       text-shadow: 0px 0px 40px #ffff05;
     `}
+  ${(props) =>
+    props.hidden &&
+    css`
+      display: none;
+    `}
 `;
 
 const ControlButton = ({ name }) => {
-  const [, page, setPage] = useContext(AppContext);
+  const [, page, setPage, firstVisit] = useContext(AppContext);
   return (
-    <ControlButtonElem active={page === name} onClick={() => setPage(name)}>
+    <ControlButtonElem
+      active={page === name}
+      onClick={() => setPage(name)}
+      hidden={firstVisit && name === "dashboard"}
+    >
       {toProperCase(name)}
     </ControlButtonElem>
   );

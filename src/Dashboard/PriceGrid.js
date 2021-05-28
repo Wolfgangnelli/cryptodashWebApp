@@ -16,7 +16,12 @@ const PriceGrid = () => {
   return (
     <PriceGridStyled>
       {Object.keys(coinPrices).map((key, idx) => (
-        <PriceTile key={key} price={coinPrices[key]} sym={key} idx={idx} />
+        <PriceTile
+          key={`priceTile-${key}`}
+          price={coinPrices[key]}
+          sym={key}
+          idx={idx}
+        />
       ))}
     </PriceGridStyled>
   );

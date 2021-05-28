@@ -38,21 +38,6 @@ const AppProvider = ({
 
   let cryptoDashData = JSON.parse(localStorage.getItem("cryptoDash"));
 
-  const savedSettings = () => {
-    if (!cryptoDashData) {
-      setPage("settings");
-      setFirstVisit(true);
-    } else {
-      setFavorites(cryptoDashData.favorites);
-      setcurrentFavorite(cryptoDashData.currentFavorite);
-      if (favorites.length > 0) {
-        getPrices(favorites.toString());
-      } else {
-        getPrices(cryptoDashData.favorites.toString());
-      }
-    }
-  };
-
   const promiseLoad = (fsym, tsyms, time) => {
     return axios
       .get(`${API_HISTORICAL_DATA}fsym=${fsym}&tsyms=${tsyms}&ts=${+time}`)
@@ -63,19 +48,11 @@ const AppProvider = ({
 
   const loadHistorical = (sym) => {
     let promises = [];
-    let fav;
-    if (sym) {
-      fav = sym;
-    } else if (favorites) {
-      fav = favorites[0];
-    } else {
-      fav = cryptoDashData.currentFavorite;
-    }
 
     for (let units = TIME_UNITS; units > 0; units--) {
       promises.push(
         promiseLoad(
-          fav,
+          sym,
           ["USD", "EUR"],
           moment().subtract({ months: units }).toDate()
         )
@@ -87,6 +64,22 @@ const AppProvider = ({
     Promise.all(promises).then((res) => {
       getHistorical(res);
     });
+  };
+
+  const savedSettings = () => {
+    if (!cryptoDashData) {
+      setPage("settings");
+      setFirstVisit(true);
+    } else {
+      setFavorites(cryptoDashData.favorites);
+      setcurrentFavorite(cryptoDashData.currentFavorite);
+
+      if (favorites.length > 0) {
+        getPrices(favorites.toString());
+      } else {
+        getPrices(cryptoDashData.favorites.toString());
+      }
+    }
   };
 
   const confirmFav = () => {
@@ -102,16 +95,13 @@ const AppProvider = ({
         currentFavorite: currentFavorite,
       })
     );
-    loadHistorical();
+    /*  loadHistorical(); */
   };
 
   function handlerHistorical() {
-    /*     console.log(historicalData);
-    console.log(currentFavorite); */
     let arrFiltered = historicalData.filter((elm) => {
       return Object.keys(elm.data).toString() === currentFavorite;
     });
-    /*    console.log(arrFiltered); */
 
     sethistoricalUSD([
       {
@@ -159,12 +149,9 @@ const AppProvider = ({
   useEffect(() => {
     getCoins();
     savedSettings();
-    if (cryptoDashData) {
-      loadHistorical();
-    }
-    return () => {
+    /*     return () => {
       deleteHistorical();
-    };
+    }; */
   }, []);
 
   useEffect(() => {
@@ -187,6 +174,11 @@ const AppProvider = ({
       handlerHistorical();
     }
   }, [historicalData]);
+  useEffect(() => {
+    if (currentFavorite) {
+      loadHistorical(currentFavorite);
+    }
+  }, [currentFavorite]);
 
   let values = [
     coinList,
