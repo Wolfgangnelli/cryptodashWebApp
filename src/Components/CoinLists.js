@@ -70,7 +70,7 @@ const CoinLists = ({ topSection }) => {
           />
         ))}
       </CoinGridStyled>
-      {topSection ? null : (
+      {/*     {topSection ? null : (
         <div className="my-3 w-40 flex justify-between mx-auto">
           <button className="border border-yellow-500 p-2">
             <i className="fas fa-chevron-left"></i> Prev
@@ -79,7 +79,7 @@ const CoinLists = ({ topSection }) => {
             Next <i className="fas fa-chevron-right"></i>
           </button>
         </div>
-      )}
+      )} */}
     </div>
   );
 };

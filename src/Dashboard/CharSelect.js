@@ -12,11 +12,3 @@ export default styled.select`
   float: right;
   color: #1163c9;
 `;
-
-/* const CharSelect = () => {
-    return <div></div>;
-}
-
-
-
-export default CharSelect; */
