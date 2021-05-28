@@ -17,7 +17,7 @@ const Dashboard = () => {
   return (
     <Page name="dashboard">
       <PriceGrid />
-      <div className="chart-grid">
+      <div className="chart-grid mb-20 max-h-10">
         <CoinSpotlight />
         <div className="chart-grid-tile">
           <PriceChart />
