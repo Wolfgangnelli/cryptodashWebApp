@@ -35,6 +35,8 @@ const AppProvider = ({
       data: [],
     },
   ]);
+  const [timeIntervalUSD, settimeIntervalUSD] = useState("months");
+  const [timeIntervalEUR, settimeIntervalEUR] = useState("months");
 
   let cryptoDashData = JSON.parse(localStorage.getItem("cryptoDash"));
 
@@ -48,13 +50,16 @@ const AppProvider = ({
 
   const loadHistorical = (sym) => {
     let promises = [];
+    let time_ = timeIntervalUSD || timeIntervalEUR;
 
     for (let units = TIME_UNITS; units > 0; units--) {
       promises.push(
         promiseLoad(
           sym,
           ["USD", "EUR"],
-          moment().subtract({ months: units }).toDate()
+          moment()
+            .subtract({ [time_]: units })
+            .toDate()
         )
       );
     }
@@ -110,7 +115,7 @@ const AppProvider = ({
           let ky = Object.keys(el.data).toString();
           return [
             moment()
-              .subtract({ months: TIME_UNITS - idx })
+              .subtract({ [timeIntervalUSD]: TIME_UNITS - idx })
               .valueOf(),
             el.data[ky].USD,
           ];
@@ -124,7 +129,7 @@ const AppProvider = ({
           let ky = Object.keys(el.data).toString();
           return [
             moment()
-              .subtract({ months: TIME_UNITS - idx })
+              .subtract({ [timeIntervalEUR]: TIME_UNITS - idx })
               .valueOf(),
             el.data[ky].EUR,
           ];
@@ -143,7 +148,9 @@ const AppProvider = ({
         currentFavorite: sym,
       })
     );
-    loadHistorical(sym);
+    /*    if (page === 'settings') {
+      loadHistorical(sym);
+    } */
   };
 
   useEffect(() => {
@@ -178,7 +185,7 @@ const AppProvider = ({
     if (currentFavorite) {
       loadHistorical(currentFavorite);
     }
-  }, [currentFavorite]);
+  }, [currentFavorite, timeIntervalEUR, timeIntervalUSD]);
 
   let values = [
     coinList,
@@ -196,6 +203,8 @@ const AppProvider = ({
     handlerCurrentFavorite,
     historicalUSD,
     historicalEUR,
+    settimeIntervalUSD,
+    settimeIntervalEUR,
   ];
 
   return <AppContext.Provider value={values}>{children}</AppContext.Provider>;
